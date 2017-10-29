@@ -1,0 +1,22 @@
+{% for post in site.posts %}
+  <div class="media">
+    <div class="media-left">
+      <span class="date-big">
+        {{ post.date | date: "%d"}}
+      </span>
+      <span class="date-small">
+        {{ post.date | date: "%b %Y"}}
+      </span>
+    </div>
+    <div class="media-body">
+      <h1 class="media-heading">
+        <a href="{{ post.url }}" class="post-urls">
+           {{ post.title }}
+        </a>
+      </h1>
+      <h4>
+        {{ post.excerpt }}
+      </h4>
+    </div>
+  </div>
+{% endfor %}
