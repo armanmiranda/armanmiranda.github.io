@@ -2,16 +2,33 @@
 ---
 @import "bootstrap";
 
+body {
+  line-height: 1.2;
+  letter-spacing: 1px;
+
+  p {
+    font-size: 75%;
+  }
+}
+
 .date-big {
   font-size: 3.25rem;
   font-weight: 800;
+  color: red;
 }
 
 .date-small {
-  font-size: 0.900rem;
+  font-size: 0.750rem;
 }
 
 .post-urls {
   color: black;
   font-size: 3.19rem;
+}
+
+.categories {
+  display: inline-block;
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 3px 5px 3px 5px;
 }

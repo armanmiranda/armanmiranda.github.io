@@ -17,6 +17,12 @@
       <h4>
         {{ post.excerpt }}
       </h4>
+      {% for category in post.categories %}
+        <div class="categories">
+          {{ category }}
+        </div>
+      {% endfor %}
     </div>
   </div>
+  <hr/>
 {% endfor %}
