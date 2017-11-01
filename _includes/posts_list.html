@@ -19,7 +19,9 @@
       </h4>
       {% for category in post.categories %}
         <div class="categories">
-          {{ category }}
+          <a href="/category/{{ category }}">
+            {{ category }}
+          </a>
         </div>
       {% endfor %}
     </div>
