@@ -1,14 +1,20 @@
 ---
 ---
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300');
 
 body {
   line-height: 1.2;
   letter-spacing: 1px;
 
   p {
-    font-size: 80%;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
   }
+}
+
+.main {
+  margin-bottom: 30px;
 }
 
 .date-big {
