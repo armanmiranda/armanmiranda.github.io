@@ -1,0 +1,18 @@
+<html>
+  {% include head.html %}
+  {% include header.html %}
+
+  <body>
+    <div class="container">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h3>{{ page.title }}</h3>
+        <p><small>
+          {{ page.date | date: "%d %b %Y"}}
+        </small></p>
+        {{ content }}
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </body>
+</html>
