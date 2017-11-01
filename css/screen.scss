@@ -39,22 +39,13 @@ body {
 }
 
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
+  background: black;
   color: #777;
   
-  small {
-    float: left;
-  }
-  
-  ul {
-    float: right;
-    list-style: none;
-    
-    li {
-      float: left;
-      margin-left: 15px;
+  .social-icons{
+    text-align: right;
+    a {
+      background: transparent;
     }
   }
 }
