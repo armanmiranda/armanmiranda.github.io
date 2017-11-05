@@ -13,8 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Arman Miranda
-email: arman.miranda.ust@gmail.com
+title: "The Developer's Notebook: A compilation of insights"
+author: Arman Miranda
 description: >- # this means to ignore newlines until "baseurl:"
   I am Arman Miranda, currently a Junior Programmer that writes
   mostly RoR applications at work. I blog mostly about the things 
