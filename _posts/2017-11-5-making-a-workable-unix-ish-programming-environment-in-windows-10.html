@@ -1,0 +1,269 @@
+---
+layout: post
+title: "Making a workable Rails programming environment in windows 10 with Ubuntu Subsystem,
+        ZSH, and RVM"
+date: 2017-11-05
+categories: [Operating System, Programming Environment, Windows 10]
+---
+<div class="introduction">
+	<p>Developing in a Windows machine doesn't feel the same especially when 
+	you are developing with a Mac at work and you have been developing 
+	previously with a Linux distro.</p>
+
+	<p><strong>Then install a damned linux distro</strong>! Well I would like to agree with you
+	but I recently found out that not all hardware can be supported by some
+	linux distros for example my new machine is using a RTL8821AE wifi card
+	which is to my dismay cuts my wifi connection every few minutes.</p>
+	 
+	<p>I could go on and on with the things that have gone wrong with that
+	but this post is about making, at the very least, a workable programming
+	environment in a Windows 10 machine.</p>
+
+  <p>This post is specifically targetted on these people:</p>
+  <ul>
+    <li>Developers who are having difficulties setting up linux-distros because
+    of their hardware</li>
+    <li>Developers who just wants to try out Microsoft's new feature</li>
+    <li>Developers who are looking for alternatives for virtual machine, since 
+    their VM's are slow.</li>
+    <li>Developers who are dual booting linux-distros that has this dream to
+    do linux/unix stuff while still being able to use our favorite operating
+    system: WINDOWS!</li>
+  </ul>
+</div>
+ 
+<div class="summarization">
+	<h4>To summarize it:</h4>
+	<p>Problems:</p>
+	<ol>
+		<li>Windows doesn't have bash</li>
+		<li>Most help in stackoverflow assumes that you are using a unix-like operating system.</li>
+		<li> In extension with the second problem, a lot of tutorials also assumes that you are</li>
+			 programming in a unix-like operating system.
+	</ol>
+	<p>Solutions:</p>
+	<ol>
+		<li>Activate Windows 10's developer mode and activate the windows subsystem for linux.</li>
+		<li>Install the electron terminal emulator: hyper.js</li>
+		<li>Install git, rvm, zsh and oh-my-zsh(optional)</li>
+	</ol>
+</div>
+
+<div class="explanation">
+	<h4>I. Problems:</h4>
+  <ol>
+	  <li> Windows doesn't have bash or zsh
+      <p>
+        One could argue that the Powershell and the Command prompt could do what the bash and zsh shells
+        can do, but for most developers it isn't just the same.
+      </p>
+      <p>
+        Most developers have grown some kind of attachment with the bash and zsh shells and other shells
+        which aside from having various programming commands requiring the terminal to run, provides
+        a lot of convenience for doing things inside the terminal. 
+      </p>
+      <p>
+        Linux distros and the Mac machines also share the same programming 
+        commands for the most parts in various scenarios, the same can't be 
+        said with the Window's Powershell and Command prompt.
+      </p>
+    </li>
+    <li>
+      Most help in stackoverflow assumes that you are using a unix like operating system
+      <p>
+        You had a problem, an error showed up and you don't know what you have to do with it
+        and as a developer we all know that if we don't know
+        what to do with this problem we should consult Dr. Google for the answer. Alongside him is 
+        Dr. StackOverflow which has a knack for programming and seems to magically solves all our 
+        problems by givin us fresh insights on how to tackle the error. Surely enough, when you type 
+        the problem there are answers. But another problem
+        arises, they were talking about <code>sudo apt-get &lt;some-program-or-repository&gt;</code>
+      </p>
+      <p>
+        Huh? Okay? Let me try that in Powershell/cmd and of course it wouldn't work. Later you found out it was
+        Linux/Unix commands and thus you try how you could do that in your Windows machine, you may have stumble
+        upon Cygwin or the like and to some, this might be complicated and overwhelming or even unnatural. 
+        But I know, I know, you are saying that just type in "Windows" alonside your initial query or ask the 
+        question yourself in SO. But this isn't the always case and on those cases that you can't find an answer
+        it just leaves the developer frustrated.
+      </p>
+    </li>
+    <li>
+      Tutorials also assumes that you are using a unix-like operating system
+      <p>
+        Okay this is in extension with the second problem, I've seen a lot of tutorial where
+        they are assuming that you are using a unix-like machine. This is not that much of a 
+        problem unlike the second problem since a lot of folks are kind enough to try it in 
+        their Windows machine as well so everybody would benefit. Kudos to those kind developers
+        who put their time to test their code in Windows, that is some serious dedication
+        right there. The problem arises though when you start looking at the more advanced concepts
+        of your particular language of choice where the unix-like-machine-need is more prevalent
+      </p>
+    </li>
+  </ol>
+	<h4>II. Solutions:</h4>
+  <ol>
+    <p>
+      A little bit of a diclaimer though, I am not telling that my solution is the best.
+      This is at best workable until of course the new Windows 10 update, which allows us
+      to install linux-distros as subsystems be in full motion. Windows as a development
+      platform do look promising now(I am guessing even the Microsoft folks are complaining where 
+      the hell is my sudo apt!?), even that though is not assurance that that will be the 
+      best solution. More can be found about this news here:
+      <a href="https://blogs.msdn.microsoft.com/commandline/2017/05/11/new-distros-coming-to-bashwsl-via-windows-store/">New distros coming to Bash/WSL via Windows Store</a>
+    </p>
+    <li>
+      Activate Windows 10's developer mode and activate the windows subsystem for linux.
+      <p>
+        So Microsoft on their Windows 10's Anniversary Update gave developers the power to use their
+        most beloved bash shell inside windows. The update gives a full, Ubuntu-based bash shell that
+        can run linux software directly on our Windows machine, yes that means you can now do that
+        <code>sudo apt-get &lt;some-software-you-need&gt;</code> "Whoo! So how can I activate it?" you ask?
+      </p>
+      <p>
+        If you like pictures along the instructions you can refer here: 
+        <a href="https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">
+          HowToGeek:How to Install and Use the Linux Bash Shell on Windows 10
+        </a>
+      </p>
+      <p>
+        Now for the more minimalistic approach:
+        <code>Go to Settings > Update & Security > For Developers > and tap that "Developer Mode"</code><br/>
+        Now that you have unleashed our power you'll have to 
+        <code>Go to Control Panel > Programs > tap that "Turn Windows Features On or Off" under the Programs
+        and Features > tick the check that says "Windows Subsystem for Linux(Beta)</code> and finally, restart 
+        your machine.
+      </p>
+      <p>
+        After restarting go ahead and search for "Bash on Windows" the shell will show you the root when you type 
+        out <code>pwd</code> and it is basically in "somewhere", literally because even I don't know where the 
+        hell am I when I first tried using <code>pwd</code>.
+      </p>
+    </li>
+    <li>
+      Install the electron terminal emulator: hyper.js
+      <p>
+        Download the hyper.js terminal emulator from this link
+        <a href="https://hyper.is/">Hyper terminal website</a>
+      </p>
+      <p>
+       You've downloaded it? Nice now we'd need to configure it open up <USER-PROFILE>/.hyper.js<br/>
+       change the <code>shell: ''</code> with <code>shell: 'C:\\Windows\\System32\\bash.exe'</code>
+      </p>
+      <p>
+        If you have the Windows 10 Fall Creators Update Build 16215 or Higher, which I highly recommend that you
+        install.<br/>
+        change <code>shell: ''</code> with <code>shell: shell: 'C:\\Windows\\System32\\cmd.exe'</code><br/>
+        and <code>shellArgs: ['--login']</code> with <code>shellArgs: ['--login', '-i', '/c wsl']</code><br/>
+      </p>
+      <p>
+         So after all that, what good can it do to me? Well as developer I would guess that you can't live without
+         tabs, the default Bash on Windows can't do that, thus the emulator. Alongside that the emulator also
+         opens your terminal in the <USER-PROFILE> directory which is, in my opinion, lets me go around the system
+         easier. Finally, the emulator is the more pleasing emulator as far as I have researched. There are a 
+         lot of alternatives but they are not really suited for my taste, but hey if that's your groove go 
+         ahead and go with that.
+      </p>
+    </li>
+    <li>
+      Install git, curl, rvm, zsh and oh-my-zsh(optional)
+      <p>
+        This final piece is really optional since the tools will differ from developer to developer.
+        This is my personal setup as a Rails developer, initially I was using bash before I was
+        introduced to zsh and oh-my-zsh at work.
+      </p>
+     {% highlight shell %}
+       sudo apt-get install git curl zsh
+     {% endhighlight %}
+     <p>
+       This install git, curl and the zsh shell. To install oh-my-zsh you would have to use
+       curl to get it.
+     </p>
+     {% highlight shell_session %}
+       curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+     {% endhighlight %}
+     <p>
+      Typing in zsh in out terminal window will now let us use zsh. But this isn't something we would
+      want to do if we want to start living on zsh. The next instructions would depend on whether you have
+      updated your Windows machine with the Fall Creators Update.
+     </p>
+     <h4>Without the Fall Creators Update:</h4>
+     <p>
+      open your terminal type in <code>nano ~/.bashrc</code> and add the following command:
+     </p> 
+     {% highlight shell %}
+      bash -c zsh
+     {% endhighlight %}
+     <p>
+      <code>CTRL+X > Y > <ENTER></code> to save the file.
+     </p>
+     <h4>With the Fall Creators Update:</h4>
+     <p>
+      In the terminal type in <code>ubuntu</code> and then type in the following:
+     </p>
+     {% highlight shell %}
+       chsh -s /usr/bin/zsh
+     {% endhighlight %}
+     <p>
+      As a final touch, we'd have to install rvm type in the following in the terminal:
+     </p>
+     {% highlight shell %}
+      gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+      \curl -sSL https://get.rvm.io | bash -s stable --rails
+     {% endhighlight %}
+     <p>
+      This would install rvm into your machine typing rvm now however would show you an command not found error.
+      To fix it, you should do <code>nano ~/.zshrc</code> and add <code>source ~/.rvm/scripts/rvm</code>. You can
+      now check if rvm is installed by typing in the terminal: <code>rvm -v</code> which should show you the 
+      current version installed in your machine. I am leaving the commands below to get you started with ruby.
+     </p>
+     {% highlight shell %}
+      rvm install <ruby_version> #This command lets you install a particular ruby version. Type in rvm install
+                                 #only to install the most recent version of ruby.
+      rvm list                   #This command lets you list all the ruby versions installed in your system
+      rvm use <ruby_version>     #This command assigns the ruby version that you will be using.
+     {% endhighlight %}
+    </li>
+  </ol>
+  <h4>III.Special Regards</h4>
+  <p>
+     I would like to thank this blog: 
+     <a href="https://evdokimovm.github.io/windows/zsh/shell/syntax/highlighting/ohmyzsh/hyper/terminal/2017/02/24/how-to-install-zsh-and-oh-my-zsh-on-windows-10.html">
+     How to Install Zsh and Oh My Zsh on Windows 10
+     </a><br/>
+     In the time that I got my laptop and had troubles in installing a linux distro, there were
+     little information and tutorials about setting up a workable linux environment in windows
+     using the Ubuntu subsystem. Most of the tricks regarding the installation of hyper, zsh and
+     the ubuntu subsystem itself is based on that blog so if there are things that I wasn't able
+     to discuss in depth and you would like to know more then I suggest you check that blog out.
+     And with this I conclude this blog post/tutorial.<br/>
+  </p>
+  <p>Happy Hacking!</p>
+</div>
+<div class="references">
+  <hr/>
+  <h6>References:</h6>
+  <p><small>
+    How to Install Zsh and Oh My Zsh on Windows 10,  <a href="https://evdokimovm.github.io/windows/zsh/shell/syntax/highlighting/ohmyzsh/hyper/terminal/2017/02/24/how-to-install-zsh-and-oh-my-zsh-on-windows-10.html">
+    https://evdokimovm.github.io/windows/zsh/shell/syntax/highlighting/ohmyzsh/hyper/terminal/2017/02/24/how-to-install-zsh-and-oh-my-zsh-on-windows-10.html
+    </a>
+  </small></p><br/>
+  <p><small>
+        HowToGeek:How to Install and Use the Linux Bash Shell on Windows 10,
+        <a href="https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">
+          https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
+        </a>
+  </small></p><br/>
+  <p><small>
+      New distros coming to Bash/WSL via Windows Store,
+      <a href="https://blogs.msdn.microsoft.com/commandline/2017/05/11/new-distros-coming-to-bashwsl-via-windows-store/">
+      https://blogs.msdn.microsoft.com/commandline/2017/05/11/new-distros-coming-to-bashwsl-via-windows-store/
+      </a>
+  </small></p><br/>
+  <p><small>
+    How To Install Ruby on Rails on Ubuntu 14.04 using RVM,
+    <a href="https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-on-ubuntu-14-04-using-rvm">
+    https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-on-ubuntu-14-04-using-rvm
+    </a>
+  </small></p>
+</div>
